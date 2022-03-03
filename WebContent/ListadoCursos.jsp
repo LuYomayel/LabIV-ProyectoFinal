@@ -106,34 +106,35 @@
     	 
             
 	</header>
-
-	<h1><p aling ="Center";"  ><b> Listado de Cursos</b></p> 
+<div class="container">
+	<h1 class="text-center"> Listado de Cursos</p> 
 </h1>
-		<table border=1> 
-		<tr>
-			<th>Materia</th>
-			<th>Semestre</th>
-			<th>Año</th>
-			<th>Cantidad de alumnos</th>
+		<table class="table table-primary w-100"> 
+		<tr class="table-primary">
+			<th class="table-primary">Materia</th>
+			<th class="table-primary">Semestre</th>
+			<th class="table-primary">Año</th>
+			<th class="table-primary">Cantidad de alumnos</th>
 		</tr>
 		<%  if(listaCursos!=null)
 		for(Curso curso : listaCursos) 
 		{
 			%>	
-		<tr>
+		<tr class="table-primary">
 			<form name="formulario" action="ServletCursos" method="post">
-					<td><%= curso.getMateria().getNombreMateria()%> <input type="hidden" name="idCurso" value="<%=curso.getId()%>"> </td>
-					<td><%= curso.getSemestre()%></td>
-					<td><%= curso.getAño()%></td>
-					<td><%= curso.getAlumno().size() %></td>
+					<td class="table-light"><%= curso.getMateria().getNombreMateria()%> <input type="hidden" name="idCurso" value="<%=curso.getId()%>"> </td>
+					<td class="table-light"><%= curso.getSemestre()%></td>
+					<td class="table-light"><%= curso.getAño()%></td>
+					<td class="table-light"><%= curso.getAlumno().size() %></td>
 					<%--<td><%= alumno.getIdCarrera()%></td>--%>
-					<td><input type="submit" name="btnVerCurso" value="Ver Curso"></td>
+					<td class="table-light"><input class="btn btn-primary"type="submit" name="btnVerCurso" value="Ver Curso"></td>
 			</form>
 				</tr>
 			<%  } %>
 	</table>
 
 	</form>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

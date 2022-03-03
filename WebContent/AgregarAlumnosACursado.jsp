@@ -112,11 +112,10 @@ if(session.getAttribute("listaAlumnosACursado")!=null)
     	 
             
 	</header>
-
-	<h1><p aling ="Center";"  ><b> Listado de Alumnos</b></p> 
-</h1>
-		<table border=1> 
-		<tr>
+<div class="container">
+	<h1 class="text-center"> Listado de Alumnos</h1>
+		<table class="table table-primary"> 
+		<tr class="table-primary">
 			<th>Legajo</th>
 			<th>Documento</th>
 			<th>Nombre</th>
@@ -135,7 +134,7 @@ if(session.getAttribute("listaAlumnosACursado")!=null)
 		for(Alumno alumno : listaAlumnos) 
 		{
 			%>	
-		<tr>
+		<tr class="table-light">
 			<form name="formulario" action="ServletCursos" method="post">
 					<td><%= alumno.getLegajo()%> <input type="hidden" name="idAlumno" value="<%=alumno.getLegajo()%>"> </td>
 					<td><%= alumno.getDni()%></td>
@@ -149,23 +148,26 @@ if(session.getAttribute("listaAlumnosACursado")!=null)
 					<td><%= alumno.getEmail()%></td>
 					<td><%= alumno.getTelefono()%></td>
 					<%--<td><%= alumno.getIdCarrera()%></td>--%>
-					<td><input type="submit" name="btnAgregar" value="Agregar"></td>
+					<td><input type="submit" name="btnAgregar" value="+" class="btn btn-success"></td>
 			</form>
 				</tr>
 			<%  } %>
 	</table>
+	<div class="w-25">
 	<h3>Lista a Agregar al curso</h3>
 	<form name="formularioLista" action="ServletCursos" method="post">
-	<ul> <% int index = 0;
+	<ul class="list-group position-relative "> <% int index = 0;
 		if(listaAlumnosCursado != null && listaAlumnosCursado.size() > 0){
 		
 		for(Alumno alumno : listaAlumnosCursado){%>
-		<li><%=alumno.getNombre() %> <input type="text" name="index" value="<%=index %>" hidden/><input type="submit" name="eliminarAlumnoDeLista" value="X"></input> </li>
+		<li class="list-group-item mb-2"><%=alumno.getNombre() + " " +alumno.getApellido() %> <input type="text" name="index" value="<%=index %>" hidden/><input type="submit" name="eliminarAlumnoDeLista" value="X" class="btn btn-danger position-absolute end-0 top-0"></input> </li>
 		<% 
 		index++;} %>
 	</ul>
-	<input type="submit" name="btnCargarLista" value="Cargar Lista"/><% } %>
+	<input type="submit" name="btnCargarLista" value="Cargar Lista" class="btn btn-primary"/><% } %>
 	</form>
+	</div>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

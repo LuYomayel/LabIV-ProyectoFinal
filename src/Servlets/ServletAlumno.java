@@ -150,7 +150,7 @@ public class ServletAlumno extends HttpServlet {
 		if(request.getParameter("Agregar")!=null) {
 			int legajo = 1000;
 			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
-			ArrayList<Alumno> lista= alumnoNegocio.ListarAlumnos();
+			ArrayList<Alumno> lista= alumnoNegocio.listarTodosAlumnos();
 			request.setAttribute("listaA", lista);
 			
 			if(lista != null) {
@@ -179,7 +179,7 @@ public class ServletAlumno extends HttpServlet {
 		if(request.getParameter("Modificar")!=null) {
 			int legajo = 1000;
 			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
-			ArrayList<Alumno> lista= alumnoNegocio.ListarAlumnos();
+			ArrayList<Alumno> lista= alumnoNegocio.listarTodosAlumnos();
 			request.setAttribute("listaA", lista);
 			
 			if(lista != null) {

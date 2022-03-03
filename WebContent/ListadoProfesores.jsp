@@ -12,7 +12,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Listado de Profesores</title>
 <link rel="Stylesheet" href="Css/ListadoProfesores.css" />
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#tablaDocentes').DataTable();
+	} );
+	
+</script>
 </head>
 <body>
 	<header>
@@ -106,26 +118,27 @@
 	}
 
  %>
-	<h1><p aling ="Center";"  ><b> Listar Profesor</b></p> </h1>
+ <div class="container">
+	<h1 class="text-center"> Listado de Profesores </h1>
 	
-		<table border=1 ,style="text-align: center"> 
-			<nav class= "table">
+		<table class="w-100 table table-primary" id="tablaDocentes"> 
+			
 				<thead>
 		
-					<tr>
-						<th>Legajo</th>
-						<th>Documento</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de Nacimiento</th>
-						<th>Direccion</th>
-						<th>Nacionalidad</th>
-						<th>Provincia</th>
-						<th>Localidad</th>
+					<tr class="table-primary">
+						<th class="table-primary">Legajo</th>
+						<th class="table-primary">Documento</th>
+						<th class="table-primary">Nombre</th>
+						<th class="table-primary">Apellido</th>
+						<th class="table-primary">Fecha de Nacimiento</th>
+						<th class="table-primary">Direccion</th>
+						<th class="table-primary">Nacionalidad</th>
+						<th class="table-primary">Provincia</th>
+						<th class="table-primary">Localidad</th>
 						
-						<th>Email</th>
-						<th>Telefono</th>
-						<th>ELIMINAR</th>
+						<th class="table-primary">Email</th>
+						<th class="table-primary">Telefono</th>
+						<th class="table-primary">ELIMINAR</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -136,24 +149,24 @@
 		{
 	%>
 					<form name="formulario" action="ServletDocente?idDocente=<%=docente.getId()%>" method="get">
-						<td><%= docente.getLegajo()%>   <input type="hidden" name="idDocente" value="<%=docente.getId()%>"> </td>
-						<td><%= docente.getDni()%></td>
-						<td><%= docente.getNombre()%></td>
-						<td><%= docente.getApellido()%></td>
-						<td><%= docente.getFechanacimiento()%>c</td>
-						<td><%= docente.getDireccion()%></td>
-						<td><%= docente.getNacionalidad()%></td>
-						<td><%= docente.getProvincia()%></td>
-						<td><%= docente.getLocalidad()%></td>
-						<td><%= docente.getEmail()%></td>
-						<td><%= docente.getTelefono()%></td>
-						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
+						<td class="table-primary"><%= docente.getLegajo()%>   <input type="hidden" name="idDocente" value="<%=docente.getId()%>"> </td>
+						<td class="table-light"><%= docente.getDni()%></td>
+						<td class="table-light"><%= docente.getNombre()%></td>
+						<td class="table-light"><%= docente.getApellido()%></td>
+						<td class="table-light"><%= docente.getFechanacimiento()%>c</td>
+						<td class="table-light"><%= docente.getDireccion()%></td>
+						<td class="table-light"><%= docente.getNacionalidad()%></td>
+						<td class="table-light"><%= docente.getProvincia()%></td>
+						<td class="table-light"><%= docente.getLocalidad()%></td>
+						<td class="table-light"><%= docente.getEmail()%></td>
+						<td class="table-light"><%= docente.getTelefono()%></td>
+						<td class="table-light"><input type="submit" name="btnEliminar" value="X" class="btn btn-danger"></td>
 					</form> 
 				</tr>
 				<%  } %>
 		
 			</tbody>
-		</nav>
+		
 	</table>
 	
 	
@@ -179,6 +192,11 @@
 			<%} if(estado==-1){ %>
 			<b>¡No se pudo eliminar el profesor! </b>
 			<%}%>
+			</div>
+			
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
+	
 </body>
 </html>

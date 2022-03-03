@@ -1,7 +1,10 @@
 package NegocioImpl;
 
+import java.util.ArrayList;
+
 import DaoImpl.CursoDaoImpl;
 import Entidad.Curso;
+
 import Negocio.CursoNegocio;
 
 public class CursoNegocioImpl implements CursoNegocio {
@@ -22,5 +25,16 @@ public class CursoNegocioImpl implements CursoNegocio {
 		
 		
 		return estado;
+	}
+
+	@Override
+	public ArrayList<Curso> listarCursos(int idDocente) {
+		ArrayList<Curso>listaCursos = cdao.listarCursos(idDocente);
+		return listaCursos;
+	}
+
+	@Override
+	public Curso getCurso(int idCurso) {
+		return cdao.getCurso(idCurso);
 	}
 }

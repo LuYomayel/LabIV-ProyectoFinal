@@ -350,6 +350,56 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		
 		return filas;
 	}
+
+
+	@Override
+	public ArrayList<Alumno> listarTodosAlumnos() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<Alumno>listaAlumnos = new ArrayList<Alumno>();
+		Connection cn= null;
+		try {
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st = cn.createStatement();
+			
+			CarreraDaoImpl daoCarrera = new CarreraDaoImpl();
+			int id = daoCarrera.getIdCarrera("Tecnico Superior en Programacion");
+			
+			ResultSet rs = st.executeQuery("SELECT a.idAlumno idAlumno,a.legajo Legajo,a.dni Dni,a.nombre Nombre,a.apellido Apellido, date_format(FechaNac, \"%d/%m/%Y\") FechaNacimiento, a.direccion Direccion, p.descripcion Pais, pr.descripcion Provincia, l.descripcion Localidad, a.email Email, a.telefono Telefono FROM alumnos a join paises p on p.idPais = a.idPais join provincias pr on pr.idPais = p.idPais join localidades l on l.idLocalidad = a.idLocalidad");
+					
+			
+			while (rs.next()) {
+				Alumno x = new Alumno();
+				
+				x.setId(rs.getInt("idAlumno"));
+				x.setLegajo(rs.getInt("Legajo"));
+				x.setDni(rs.getString("Dni"));
+				x.setNombre(rs.getString("Nombre"));
+				x.setApellido(rs.getString("Apellido"));
+				x.setFechanacimiento(rs.getString("FechaNacimiento"));
+				x.setDireccion(rs.getString("Direccion"));
+				x.setNacionalidad(rs.getString("Pais"));
+				x.setProvincia(rs.getString("Provincia"));
+				x.setLocalidad(rs.getString("Localidad"));
+				x.setEmail(rs.getString("Email"));
+				x.setTelefono(rs.getString("Telefono"));	
+				
+				listaAlumnos.add(x);
+			}
+			cn.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			
+		}
+		return listaAlumnos;
+	}
 	
 	
 }

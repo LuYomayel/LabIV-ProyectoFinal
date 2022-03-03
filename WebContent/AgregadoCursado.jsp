@@ -113,57 +113,62 @@
 	%>
 	<div class="container">
 	<h1 class="text-center">Cargar Curso</h1>
-	<form method="post" action="ServletCursos" class="">
+	<form method="post" action="ServletCursos" class="form w-25">
+		<div class="mb-3">
+		 <label name="txtMaterias" class="form-label">Materias</label>
+		 <select class="form-select" name="Materias">
+		  <option value=null selected disabled hidden>Elegir una Materia</option>
+		     <% if(list!=null)
+	     	for(Materia t : list){ %>
+			<option value=<%= t.getIdMateria() %>><%=t.getNombreMateria()%></option>
+			<%} %>
+		</select>
+		</div>
+		<div class="mb-3">
+		 <label name="txtSemestre" class="form-label">Semestre</label>
+		 <select class="form-select" name="semestre">
+		  	
+		   	<option value=1 >1er Semestre </option>
+			<option value=2 >2do Semestre </option>
+		</select>
+		</div>
+		<div class="mb-3">
+			<label name="txtAño" class="form-label">Año</label>
+			<input type="number" name="anio" class="form-control">
+		</div>
+		<div class="mb-3">
+		 <label name="txtMaterias" class="form-label">Docentes</label>
+		 <select class="form-select" name="Docentes">
+		  <option value=null selected disabled hidden>Elegir Docente</option>
+		     <% 
+	     	if (listaDocente!= null)
+     		for(Docente t : listaDocente){
+    	 	%>	
+			<option value=<%= t.getId() %> name="idDocente"><%= t.getNombre() + " " + t.getApellido()%> </option>
+			<% } %>
+		</select>
+		</div>
+		<div class="mb-3">
+		 <label name="txtMaterias" class="form-label">Lista de alumnos</label>
+		 <select class="form-select" name="Alumnos">
+		  <% 
+	     	ArrayList<Alumno> listaAlumnosCursado = new ArrayList<Alumno>();
+	     	if(session.getAttribute("listaAlumnosACursado") != null){
+	     		
+	     		listaAlumnosCursado = (ArrayList<Alumno>) session.getAttribute("listaAlumnosACursado");
+	     	}
+	     	if (listaAlumnosCursado!= null)
+	    		for(Alumno t : listaAlumnosCursado){
+	   	 	%>	
+			<option value=<%= t.getId() %> ><%= t.getNombre() + " " + t.getApellido()%> </option>
+			<% } %>
+		</select>
+		<a href="ServletCursos?AgregarAlumnos=1">Agregar alumnos a cursado</a>
+		</div>			
+		<div class="mb-3">
+			<input type="submit" value="Cargar Curso" name="btnCargarCurso" class="btn btn-primary"/>
+		</div>				
 						
-						<label>Materias: </label>
-						<select id ="Materias" name="Materias" style="width: 148px ; ">  
-							<option value=null selected disabled hidden>Elegir una Materia</option>
-						     	<% 
-						     	if (list!= null)
-					     		for(Materia t : list){
-					    	 	%>	
-								<option value=<%= t.getIdMateria() %> name="idMateria"><%= t.getNombreMateria()%> </option>
-								<% } %>
-						</select>
-						<br>
-						<label>Semestre</label>
-						<select id ="Semestre" name="semestre" style="width: 148px ; ">
-							<option value=1 >1er Semestre </option>
-							<option value=2 >2do Semestre </option>
-						</select>
-						<br>
-						<label>Año:</label>
-						<input type="number" placeholder="Año" name="anio"/>
-						<br>
-						<label>Docentes: </label>
-						<select id ="Docentes" name="Docentes" style="width: 148px ; ">  
-							<option value=null selected disabled hidden>Elegir Docente</option>
-						     	<% 
-						     	if (listaDocente!= null)
-					     		for(Docente t : listaDocente){
-					    	 	%>	
-								<option value=<%= t.getId() %> name="idDocente"><%= t.getNombre() + " " + t.getApellido()%> </option>
-								<% } %>
-						</select>
-						<br>
-						<label>Lista de Alumnos: </label>	
-						<select id ="Alumnos" name="Alumnos" style="width: 148px ; ">  
-							
-						     	<% 
-						     	ArrayList<Alumno> listaAlumnosCursado = new ArrayList<Alumno>();
-						     	if(session.getAttribute("listaAlumnosACursado") != null){
-						     		
-						     		listaAlumnosCursado = (ArrayList<Alumno>) session.getAttribute("listaAlumnosACursado");
-						     	}
-						     	if (listaAlumnosCursado!= null)
-					     		for(Alumno t : listaAlumnosCursado){
-					    	 	%>	
-								<option value=<%= t.getId() %> ><%= t.getNombre() + " " + t.getApellido()%> </option>
-								<% } %>
-						</select>		
-						<a href="ServletCursos?AgregarAlumnos=1">Agregar alumnos a cursado</a>
-						<br>
-						<input type="submit" value="Cargar Curso" name="btnCargarCurso"/>
 	</form>
 	<%
 			int estado=0;

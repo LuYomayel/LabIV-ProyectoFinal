@@ -20,6 +20,19 @@
 <title>Modificar Profesores</title>
 <link rel="Stylesheet" href="Css/ModificarAlumno.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#table_id').DataTable();
+	} );
+	
+</script>
+
 </head>
 <body>
 <% 
@@ -115,23 +128,26 @@
             
 	</header>
 
-	<h1><p aling ="Center";"  ><b> Modificar Profesores</b></p> 
+	<h1 class="text-center">Modificar Profesores</p> 
 </h1>
-		<table border=1> 
-		<tr>
-			<th>Legajo</th>
-			<th>Documento</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Fecha de Nacimiento</th>
-			<th>Direccion</th>
-			<th>Nacionalidad</th>
-			<th>Provincia</th>
-			<th>Localidad</th>
-			<th>Email</th>
-			<th>Telefono</th>
-			<th>MODIFICAR</th>
+		<table class="table table-primary w-75" id="table_id"> 
+		<thead>
+		<tr class="table-primary">
+			<th class="table-primary">Legajo</th>
+			<th class="table-primary">Documento</th>
+			<th class="table-primary">Nombre</th>
+			<th class="table-primary">Apellido</th>
+			<th class="table-primary">Fecha de Nacimiento</th>
+			<th class="table-primary">Direccion</th>
+			<th class="table-primary">Nacionalidad</th>
+			<th class="table-primary">Provincia</th>
+			<th class="table-primary">Localidad</th>
+			<th class="table-primary">Email</th>
+			<th class="table-primary">Telefono</th>
+			<th class="table-primary">MODIFICAR</th>
 		</tr>
+		</thead>
+		<tbody>
 		<% PaisDaoImpl paisDao = new PaisDaoImpl();
 		ProvinciaDaoImpl provinciaDao = new ProvinciaDaoImpl();
 		LocalidadDaoImpl localidadDao = new LocalidadDaoImpl();
@@ -156,15 +172,16 @@
 		for(Docente docente : listaDocentes) 
 		{
 			%>	
+			
 		<tr>
 					<form name="formulario" action="ServletDocente" method="post">
-					<td><%= docente.getLegajo()%> <input type="hidden" name="idDocente" value="<%=docente.getLegajo()%>"> </td>
-					<td><input type ="text" name ="dniDocente" value= "<%=docente.getDni() %>"> </td>
-					<td><input type ="text" name ="NombreDocente" value= "<%=docente.getNombre() %>"></td>
-					<td><input type ="text" name ="ApellidoDocente" value= "<%=docente.getApellido() %>"></td>
-					<td><input type ="text" name ="NacDocente" value= "<%=docente.getFechanacimiento() %>"></td>
-					<td><input type ="text" name ="DireccionDocente" value= "<%=docente.getDireccion() %>"></td>
-					<td>
+					<td class="table-primary"><%= docente.getLegajo()%> <input type="hidden" name="idDocente" value="<%=docente.getLegajo()%>"> </td>
+					<td class="table-light"><input type ="text" name ="dniDocente" value= "<%=docente.getDni() %>"> </td>
+					<td class="table-light"><input type ="text" name ="NombreDocente" value= "<%=docente.getNombre() %>"></td>
+					<td class="table-light"><input type ="text" name ="ApellidoDocente" value= "<%=docente.getApellido() %>"></td>
+					<td class="table-light"><input type ="text" name ="NacDocente" value= "<%=docente.getFechanacimiento() %>"></td>
+					<td class="table-light"><input type ="text" name ="DireccionDocente" value= "<%=docente.getDireccion() %>"></td>
+					<td class="table-light">
 							<select id ="Nacionalidad" name="Nacionalidad" style="width: 148px ; ">  
 							
 							<option value=<%= paisDao.getId(docente.getNacionalidad()) %> selected><%= docente.getNacionalidad() %></option>
@@ -176,7 +193,7 @@
 							</select>
 					</td>
 					
-					<td>
+					<td class="table-light">
 							<select name="Provincia" style="width: 148px; " > 
 							
 							<option value=<%= provinciaDao.getId(docente.getProvincia()) %> selected><%= docente.getProvincia() %></option>
@@ -189,7 +206,7 @@
 							<%} %>
 							</select>
 							</td>   
-					<td>
+					<td class="table-light">
 							<select select name="Localidad" style="width: 148px; " >	
 							
 							<option value=<%= localidadDao.getId(docente.getLocalidad()) %> selected><%= docente.getLocalidad() %></option>
@@ -202,14 +219,15 @@
 							<%} %>
 							
 							</select>
-					</td>
-					<td><input type ="text" name ="EmailDocente" value= "<%=docente.getEmail() %>"></td>
-					<td><input type ="text" name ="TelefonoDocente" value= "<%=docente.getTelefono() %>"></td>
-					<td><input type="submit" name="btnModificar" value="Modificar"></td>
+					</td class="table-light">
+					<td class="table-light"><input type ="text" name ="EmailDocente" value= "<%=docente.getEmail() %>"></td>
+					<td class="table-light"><input type ="text" name ="TelefonoDocente" value= "<%=docente.getTelefono() %>"></td>
+					<td class="table-light"><input type="submit" name="btnModificar" value="Modificar" class="btn btn-primary"></td>
 					</form>
 				</tr>
 
 			<%  } %>
+			</tbody>
 	</table>
 
 	</form>

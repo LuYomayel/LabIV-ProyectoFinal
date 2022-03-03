@@ -12,4 +12,7 @@ public interface AlumnoNegocio {
 	public Alumno obtenerAlumno(String Apellido);
 	Alumno obtenerAlumno(int id);
 	public int modificarAlumno(Alumno alumno);
+	public ArrayList<Alumno> ListarAlumnosCurso(int idCurso);
+	public Alumno getAlumno(int idAlumno);
+	public ArrayList<Alumno> listarTodosAlumnos();
 }

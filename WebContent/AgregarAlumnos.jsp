@@ -103,12 +103,6 @@
     	 
             
 	</header>
-	<div class="flex-column justify-content-center">
-	<h1 class=""><p align="center";"><b>Agregar Alumnos </b> </p></h1>
-	
-	<form action="ServletAlumno" method="get" class="" >
-	<table>
-	
 	<% 
 	
 	int legajo=1000;
@@ -118,6 +112,109 @@
 	}
 
  	%>
+ 	<%
+   		ArrayList<Pais> list = null;
+   		if (request.getAttribute("ListarPais")!=null)
+   		{
+ 			list = (ArrayList<Pais>) request.getAttribute("ListarPais");
+   		}
+     %>
+     <%
+   		ArrayList<Provincia> listprov = null;
+     	if(request.getAttribute("ListarProvincia")!=null){
+    		listprov= (ArrayList<Provincia>) request.getAttribute("ListarProvincia");}
+     %>
+     <%				
+	ArrayList<Localidad> listLocalidad = null;
+	
+	if(request.getAttribute("ListarLocalidad")!=null){
+	 listLocalidad = (ArrayList<Localidad>) request.getAttribute("ListarLocalidad");}
+	%>
+	<div class="container">
+	<h1 class=""><p align="center";"><b>Agregar Alumnos </b> </p></h1>
+	
+	<form action="ServletAlumno" method="get" class="w-25" >
+		<div class="mb-3">
+		   <label  class="form-label" >Legajo</label>
+		   <input type="text" class="form-control" value="<%=legajo%>" readonly="true" name="Legajo">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Documento</label>
+		   <input type="number" class="form-control" name="txtDni">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Nombre</label>
+		   <input type="text" class="form-control" name="txtNombre">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Apellido</label>
+		   <input type="text" class="form-control" name="txtApellido">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Fecha de Nacimiento</label>
+		   <input type="text" class="form-control" name="txtFecha">
+		   <div  class="form-text">dd/mm/aaaa</div>
+		 </div>
+		 
+		 <div class="mb-3">
+		 <label name="txtNacionalidad" class="form-label">Nacionalidad</label>
+		 <select class="form-select" name="Nacionalidad" >
+		  <option value=null selected>Elegir un pais</option>
+		  	<% if (list!= null)
+     		for(Pais t : list){
+    	 	%>	
+			<option value=<%= t.getIdPais() %> ><%= t.getDescripcionPais()%> </option>
+			<%} %>
+		</select>
+		</div>
+		
+		<div class="mb-3">
+		 <label name="txtProvincia" class="form-label">Provincia</label>
+		 <select class="form-select" name="Provincia" >
+		  <option value=null selected disabled hidden>Elegir una Provincia</option>
+     		<% if(listprov!=null)
+     		for(Provincia t : listprov){
+    	 	%>
+			<option value=<%= t.getIdProvincia() %>><%=t.getDescripcionProv()%></option>
+			<%} %>
+			</select>
+			</div>
+			
+		<div class="mb-3">
+		 <label name="txtLocalidad" class="form-label">Localidad</label>
+		 <select class="form-select" name="Localidad">
+		  <option value=null selected disabled hidden>Elegir una Localidad</option>
+		     <% if(listLocalidad!=null)
+	     	for(Localidad t : listLocalidad){ %>
+			<option value=<%= t.getIdLocalidad() %>><%=t.getDescripcion()%></option>
+			<%} %>
+		</select>
+		</div>
+		
+		 <div class="mb-3">
+		   <label  class="form-label">Direccion</label>
+		   <input type="text" class="form-control" name="txtDireccion">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Email</label>
+		   <input type="email" class="form-control" name="txtEmail">
+		 </div>
+		 
+		 <div class="mb-3">
+		   <label  class="form-label">Telefono</label>
+		   <input type="number" class="form-control" name="txtTelefono">
+		 </div>
+		 
+		 <button type="submit" class="btn btn-primary mb-3" name="btnAgregar">Agregar</button>
+		 </form>
+	<%-- <table>
+	
+	
 		<tr>
 			<td>Legajo</td><td><input type="text" name="Legajo" class="menu2" value="<%=legajo%>" readonly="true"></td>
 		</tr>
@@ -134,24 +231,9 @@
 			<td>Fecha de Nacimiento</td><td><input type="text" name="txtFecha"required></td><td>Con formato dd/mm/aaaa</td>
 		</tr>
 		<tr>
-	<%
-   		ArrayList<Pais> list = null;
-   		if (request.getAttribute("ListarPais")!=null)
-   		{
- 			list = (ArrayList<Pais>) request.getAttribute("ListarPais");
-   		}
-     %>
-   	<%
-   		ArrayList<Provincia> listprov = null;
-     	if(request.getAttribute("ListarProvincia")!=null){
-    		listprov= (ArrayList<Provincia>) request.getAttribute("ListarProvincia");}
-     %>
-	<%				
-	ArrayList<Localidad> listLocalidad = null;
 	
-	if(request.getAttribute("ListarLocalidad")!=null){
-	 listLocalidad = (ArrayList<Localidad>) request.getAttribute("ListarLocalidad");}
-	%>
+   	
+	
 		<td> Nacionalidad</td>
 		<td>
 			<select id ="Nacionalidad" name="Nacionalidad" style="width: 148px ; ">  
@@ -217,8 +299,8 @@
 			<td><input type="Submit" name="btnAgregar" value="AGREGAR" style="color: #000000"></td>
 		</tr>
 		
-	</table>
-	</form>
+	</table>--%>
+	
 	
 		<%
 			int estado=0;

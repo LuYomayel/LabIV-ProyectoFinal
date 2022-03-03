@@ -8,7 +8,7 @@ import Entidad.Alumno;
 import Negocio.AlumnoNegocio;
 
 public class AlumnoNegocioImpl implements AlumnoNegocio{
-	AlumnoDao adao = new AlumnoDaoImpl();
+	AlumnoDaoImpl adao = new AlumnoDaoImpl();
 
 	@Override
 	public int agregarAlumno(Alumno alumno) {
@@ -93,5 +93,21 @@ public class AlumnoNegocioImpl implements AlumnoNegocio{
 		
 		
 		return estado;
+	}
+
+	@Override
+	public ArrayList<Alumno> ListarAlumnosCurso(int idCurso) {
+		ArrayList<Alumno> listaAlumnosCurso = adao.ListarAlumnosCurso(idCurso);
+		return listaAlumnosCurso;
+	}
+
+	@Override
+	public Alumno getAlumno(int idAlumno) {
+		return adao.getAlumno(idAlumno);
+	}
+
+	@Override
+	public ArrayList<Alumno> listarTodosAlumnos() {
+		return adao.listarTodosAlumnos();
 	}
 }

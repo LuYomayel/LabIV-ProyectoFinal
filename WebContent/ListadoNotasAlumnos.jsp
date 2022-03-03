@@ -15,6 +15,18 @@
 <title>Listado de alumnos</title>
 <link rel="Stylesheet" href="Css/ListadoAlumno.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#tabla_id').DataTable();
+	} );
+	
+</script>
+
 </head>
 <body>
 	<% 
@@ -113,16 +125,19 @@
 	</header>
 	<div class="container">
 	<h1 class="text-center"><p aling ="Center";"  ><b> <%=curso.getMateria().getNombreMateria() %></b></p></h1>
-		<table border=1> 
-		<tr>
-			<th>Legajo</th>
-			<th>Nombre y Apellido</th>
-			<th>Nota 1</th>
-			<th>Nota 2</th>
-			<th>Recuperatorio 1</th>
-			<th>Recuperatorio 2</th>
-			<th>Estado</th>
+		<table class="table table-primary display" id="tabla_id" > 
+		<thead>
+		<tr class="table-primary">
+			<th class="table-primary">Legajo</th>
+			<th class="table-primary">Nombre y Apellido</th>
+			<th class="table-primary">Nota 1</th>
+			<th class="table-primary">Nota 2</th>
+			<th class="table-primary">Recuperatorio 1</th>
+			<th class="table-primary">Recuperatorio 2</th>
+			<th class="table-primary">Estado</th>
 		</tr>
+		</thead>
+		<tbody>	
 		<%  if(curso.getListaAlumnosCurso() !=null) {
 			AlumnoDaoImpl alumnoDao = new AlumnoDaoImpl();
 		for(Alumnoxcurso alumno : curso.getListaAlumnosCurso()) 
@@ -131,8 +146,9 @@
 			Alumno alu = alumnoDao.getAlumnoId(alumno.getIdAlumno());
 			
 			if(alu != null){
-			%>	
-		<tr>
+			%>
+			
+		<tr class="table-primary">
 			<form name="formulario" action="ServletCursos" method="post">
 					<td><%= alu.getLegajo()%> <input type="hidden" name="idAlumno" value="<%=alu.getId()%>"> </td>
 					<td><%= alu.getNombre() + " " + alu.getApellido()%></td>
@@ -142,13 +158,23 @@
 					<td><input type="number" placeholder="nota1" name="notaRecuperatorio2" value="<%= alumno.getRecupera2() %>"></td>
 					<th><%=alumno.getEstado() %></th>
 					<input type="hidden" name="idCurso" value="<%=curso.getId()%>"> </td>
-					 <td><input type="submit" name="btnCargarNotas" value="Cargar Notas"></td>
+					 <td><input type="submit" name="btnCargarNotas" value="Cargar" class="btn btn-primary"></td>
 			</form>
 				</tr>
 			<%  }}} else{System.out.println("alu es null");} %>
+			</tbody>
 	</table>
 
 	</form>
+	<% if(request.getAttribute("estadoModificar")!= null){
+		if((int)request.getAttribute("estadoModificar")>=1){%>
+		<p>Modificado con éxito!</p><% }%>
+		<% if((int)request.getAttribute("estadoModificar") == -1){ %>
+		<p>Error al modificar<p>
+		<% } %> 
+		<% } %>
+		
+		
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

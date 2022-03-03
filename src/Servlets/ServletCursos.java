@@ -21,7 +21,12 @@ import Entidad.Alumnoxcurso;
 import Entidad.Curso;
 import Entidad.Docente;
 import Entidad.Materia;
+import Negocio.AlumnoxcursoNegocio;
+import NegocioImpl.AlumnoNegocioImpl;
+import NegocioImpl.AlumnoxcursoNegocioImpl;
 import NegocioImpl.CursoNegocioImpl;
+import NegocioImpl.DocenteNegocioImpl;
+import NegocioImpl.MateriaNegocioImpl;
 
 /**
  * Servlet implementation class ServletCursos
@@ -44,22 +49,33 @@ public class ServletCursos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(request.getParameter("Agregar")!=null) {
-			MateriaDaoImpl dao = new MateriaDaoImpl();
-			ArrayList<Materia> listaMaterias = dao.listarMaterias();
-			DocenteDaoImpl daoDoc = new DocenteDaoImpl();
-			ArrayList<Docente> listaDocente = daoDoc.ListarDocentes();
+			MateriaNegocioImpl materiaNegocio = new MateriaNegocioImpl();
+			ArrayList<Materia> listaMaterias = materiaNegocio.listarMaterias();
+			
+			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
+			ArrayList<Docente> listaDocente = docenteNegocio.ListarDocentes();
+			
 			request.setAttribute("listaMaterias", listaMaterias);
 			request.setAttribute("listaDocente", listaDocente);
 			RequestDispatcher rd = request.getRequestDispatcher("/AgregadoCursado.jsp");
 			rd.forward(request, response);
 		}
 		if(request.getParameter("Listar")!=null) {
+			/*DocenteDaoImpl docenteDao = new DocenteDaoImpl();
+			int idDocente = docenteDao.obtenerIdDocente(usuario.getUsuario());
 			CursoDaoImpl cursoDao = new CursoDaoImpl();
 			AlumnoDaoImpl alumnoDao = new AlumnoDaoImpl();
 			ArrayList<Curso> listaCursos = new ArrayList<Curso>();
-			listaCursos = cursoDao.listarCursos((int)session.getAttribute("idDocenteSesion"));
+			listaCursos = cursoDao.listarCursos(idDocente);*/
+			
+			CursoNegocioImpl cursoNegocio = new CursoNegocioImpl();
+			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
+			
+			ArrayList<Curso> listaCursos = new ArrayList<Curso>();
+			listaCursos = cursoNegocio.listarCursos((int)session.getAttribute("idDocenteSesion"));
+			
 			for(Curso curso : listaCursos) {
-				curso.setAlumno(alumnoDao.ListarAlumnosCurso(curso.getId()));
+				curso.setAlumno(alumnoNegocio.ListarAlumnosCurso(curso.getId()));
 			}
 			
 			request.setAttribute("listaC", listaCursos);
@@ -67,13 +83,15 @@ public class ServletCursos extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("AgregarAlumnos") != null) {
+			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
+			ArrayList<Alumno> listaAlumnos = alumnoNegocio.ListarAlumnos();
 			
-			AlumnoDaoImpl daoAlumno = new AlumnoDaoImpl();
-			ArrayList<Alumno> listaAlumnos = daoAlumno.ListarAlumnos();
 			ArrayList<Alumno> listaAlumnosACursado = new ArrayList<Alumno>();
+			
 			if(session.getAttribute("listaAlumnosACursado")!= null) {
 				listaAlumnosACursado = (ArrayList<Alumno>) session.getAttribute("listaAlumnosACursado");
 			}
+			
 			request.setAttribute("listaAlumnos", listaAlumnos);
 			session.setAttribute("listaAlumnosACursado", listaAlumnosACursado);
 			RequestDispatcher rd = request.getRequestDispatcher("/AgregarAlumnosACursado.jsp");
@@ -90,10 +108,10 @@ public class ServletCursos extends HttpServlet {
 			ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
 			try {
 			if(session.getAttribute("listaAlumnosACursado") != null) {
-				
+				AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
 				ArrayList<Alumno> listaAlumnos1 = new ArrayList<Alumno>();
-				AlumnoDaoImpl daoAlumno = new AlumnoDaoImpl();
-				Alumno al = daoAlumno.getAlumno(Integer.parseInt(request.getParameter("idAlumno")));
+
+				Alumno al = alumnoNegocio.getAlumno(Integer.parseInt(request.getParameter("idAlumno")));
 				
 				listaAlumnos1 = (ArrayList<Alumno>) session.getAttribute("listaAlumnosACursado");
 				
@@ -112,15 +130,14 @@ public class ServletCursos extends HttpServlet {
 				}
 				
 				listaAlumnos = listaAlumnos1;
-			}else {
-				
-				//session.setAttribute("listaAlumnosACursado", listaAlumnos);
 			}
 			
-			AlumnoDaoImpl daoAlumno = new AlumnoDaoImpl();
-			ArrayList<Alumno> listaAlumnosCompleta = daoAlumno.ListarAlumnos();
+			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
+			ArrayList<Alumno> listaAlumnosCompleta = alumnoNegocio.ListarAlumnos();
+			
 			request.setAttribute("listaAlumnos", listaAlumnosCompleta);
 			session.setAttribute("listaAlumnosACursado", listaAlumnos);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/AgregarAlumnosACursado.jsp");
 			rd.forward(request, response);
 			}catch(Exception e) {
@@ -130,15 +147,16 @@ public class ServletCursos extends HttpServlet {
 		}
 		if(request.getParameter("btnCargarLista") != null) {
 			try {
-				MateriaDaoImpl dao = new MateriaDaoImpl();
-				ArrayList<Materia> listaMaterias = dao.listarMaterias();
-				DocenteDaoImpl daoDoc = new DocenteDaoImpl();
-				ArrayList<Docente> listaDocente = daoDoc.ListarDocentes();
-				request.setAttribute("listaMaterias", listaMaterias);
-				request.setAttribute("listaDocente", listaDocente);
+				MateriaNegocioImpl materiaNegocio = new MateriaNegocioImpl();
+				ArrayList<Materia> listaMaterias = materiaNegocio.listarMaterias();
+				
+				DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
+				ArrayList<Docente> listaDocente = docenteNegocio.ListarDocentes();
+				
 				ArrayList<Alumno> listaAlumnos = (ArrayList<Alumno>)session.getAttribute("listaAlumnosACursado");
 				
-				
+				request.setAttribute("listaMaterias", listaMaterias);
+				request.setAttribute("listaDocente", listaDocente);
 				request.setAttribute("listaAlumnosACursado", listaAlumnos);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/AgregadoCursado.jsp");
@@ -151,10 +169,14 @@ public class ServletCursos extends HttpServlet {
 			ArrayList<Alumno> listaAlumnosCursado = (ArrayList<Alumno>)session.getAttribute("listaAlumnosACursado");
 			int index;
 			index = Integer.parseInt(request.getParameter("index"));
-			AlumnoDaoImpl daoAlumno = new AlumnoDaoImpl();
-			ArrayList<Alumno> listaAlumnosCompleta = daoAlumno.ListarAlumnos();
-			request.setAttribute("listaAlumnos", listaAlumnosCompleta);
+			
+			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
+			ArrayList<Alumno> listaAlumnosCompleta = alumnoNegocio.ListarAlumnos();
+			
+			
 			listaAlumnosCursado.remove(index);
+			
+			request.setAttribute("listaAlumnos", listaAlumnosCompleta);
 			request.setAttribute("listaAlumnosACursado", listaAlumnosCursado);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/AgregarAlumnosACursado.jsp");
@@ -175,10 +197,12 @@ public class ServletCursos extends HttpServlet {
 				curso.setAlumno(listaAlumnosCursado);
 				int estado = cursoNegocio.agregarCurso(curso);
 				
-				MateriaDaoImpl dao = new MateriaDaoImpl();
-				ArrayList<Materia> listaMaterias = dao.listarMaterias();
-				DocenteDaoImpl daoDoc = new DocenteDaoImpl();
-				ArrayList<Docente> listaDocente = daoDoc.ListarDocentes();
+				MateriaNegocioImpl materiaNegocio = new MateriaNegocioImpl();
+				ArrayList<Materia> listaMaterias = materiaNegocio.listarMaterias();
+				
+				DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
+				ArrayList<Docente> listaDocente = docenteNegocio.ListarDocentes();
+				
 				request.setAttribute("listaMaterias", listaMaterias);
 				request.setAttribute("listaDocente", listaDocente);
 				request.setAttribute("estadoAgregar", estado);
@@ -190,11 +214,14 @@ public class ServletCursos extends HttpServlet {
 		if(request.getParameter("btnVerCurso")!= null) {
 			int idCurso = Integer.parseInt(request.getParameter("idCurso"));
 			ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
+			
+			CursoNegocioImpl cursoNegocio = new CursoNegocioImpl();
 			CursoDaoImpl cursoDao = new CursoDaoImpl();
-			Curso curso = cursoDao.getCurso(idCurso);
+			Curso curso = cursoNegocio.getCurso(idCurso);
 			//System.out.println(curso.getId());
-			AlumnoxcursoDaoImpl alumnoDao = new AlumnoxcursoDaoImpl();
-			curso.setListaAlumnosCurso(alumnoDao.ListarAlumnosxcurso(curso.getId()));
+			
+			AlumnoxcursoNegocioImpl alumnoNegocio = new AlumnoxcursoNegocioImpl();
+			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
 			request.setAttribute("Curso", curso);
 			RequestDispatcher rd = request.getRequestDispatcher("/ListadoNotasAlumnos.jsp");
 			rd.forward(request, response);
@@ -244,17 +271,21 @@ public class ServletCursos extends HttpServlet {
 					alumno.setEstado("Promocionado");
 				}
 			}
-			AlumnoxcursoDaoImpl alumnoDao = new AlumnoxcursoDaoImpl();
+			AlumnoxcursoNegocioImpl alumnoNegocio = new AlumnoxcursoNegocioImpl();
+			
 			int idCurso = Integer.parseInt(request.getParameter("idCurso"));
 			System.out.println("Nota Final:"+ notafinal);
 			alumno.setIdCurso(idCurso);
 			
-			alumnoDao.agregarAlumnoxcurso(alumno);
+			int estado = alumnoNegocio.agregarAlumnoxcurso(alumno);
 			
 			CursoDaoImpl cursoDao = new CursoDaoImpl();
 			Curso curso = cursoDao.getCurso(idCurso);
-			curso.setListaAlumnosCurso(alumnoDao.ListarAlumnosxcurso(curso.getId()));
+			
+			
+			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
 			request.setAttribute("Curso", curso);
+			request.setAttribute("estadoModificar", estado);
 			RequestDispatcher rd = request.getRequestDispatcher("/ListadoNotasAlumnos.jsp");
 			rd.forward(request, response);
 		}
