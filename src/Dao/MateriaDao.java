@@ -5,4 +5,5 @@ import Entidad.Materia;
 
 public interface MateriaDao {
 	public ArrayList<Materia> listarMaterias();
+	public int agregarMateria(Materia materia);
 }

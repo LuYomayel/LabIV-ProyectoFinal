@@ -74,6 +74,12 @@ if(session.getAttribute("listaAlumnosACursado")!=null)
 				            
 				          </ul>
 				        </li>
+				        <li class="nav-item">
+				          <a class="nav-link " href="ServletMaterias?Materias=1" id="navbarScrollingDropdown" role="button">
+				            Materias
+				          </a>
+				          
+				        </li>
 				        <% } %>
 				        	
 				        <% if(session.getAttribute("docente")!=null){ 

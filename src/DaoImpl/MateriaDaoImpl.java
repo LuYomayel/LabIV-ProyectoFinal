@@ -45,8 +45,30 @@ public class MateriaDaoImpl implements MateriaDao{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
+		/*System.out.println("size materias:"+listaMaterias.size());*/
 		return listaMaterias;
+	}
+
+	@Override
+	public int agregarMateria(Materia materia) {
+		int estado = -1;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Connection cn = null;
+		try {
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			String query = "insert materias(Descripcion_Materia)values('"+materia.getNombreMateria()+"')"; 
+			Statement st = cn.createStatement();
+			estado = st.executeUpdate(query);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return estado;
 	}
 
 }

@@ -12,6 +12,17 @@
 <title>Listado de cursos</title>
 <link rel="Stylesheet" href="Css/ListadoAlumno.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#table_id').DataTable();
+	} );
+	
+</script>
 </head>
 <body>
 	<% 
@@ -68,6 +79,12 @@
 				            
 				          </ul>
 				        </li>
+				        <li class="nav-item">
+				          <a class="nav-link " href="ServletMaterias?Materias=1" id="navbarScrollingDropdown" role="button">
+				            Materias
+				          </a>
+				          
+				        </li>
 				        <% } %>
 				        	
 				        <% if(session.getAttribute("docente")!=null){ 
@@ -109,13 +126,17 @@
 <div class="container">
 	<h1 class="text-center"> Listado de Cursos</p> 
 </h1>
-		<table class="table table-primary w-100"> 
+		<table class="table table-primary w-100" id="table_id"> 
+		<thead>
 		<tr class="table-primary">
 			<th class="table-primary">Materia</th>
 			<th class="table-primary">Semestre</th>
 			<th class="table-primary">Año</th>
 			<th class="table-primary">Cantidad de alumnos</th>
+			<th>Ver Curso</th>
 		</tr>
+		</thead>
+		<tbody>
 		<%  if(listaCursos!=null)
 		for(Curso curso : listaCursos) 
 		{
@@ -129,8 +150,9 @@
 					<%--<td><%= alumno.getIdCarrera()%></td>--%>
 					<td class="table-light"><input class="btn btn-primary"type="submit" name="btnVerCurso" value="Ver Curso"></td>
 			</form>
-				</tr>
+		</tr>
 			<%  } %>
+			</tbody>
 	</table>
 
 	</form>

@@ -85,6 +85,12 @@
 				            
 				          </ul>
 				        </li>
+				        <li class="nav-item">
+				          <a class="nav-link " href="ServletMaterias?Materias=1" id="navbarScrollingDropdown" role="button">
+				            Materias
+				          </a>
+				          
+				        </li>
 				        <% } %>
 				        	
 				        <% if(session.getAttribute("docente")!=null){ 
@@ -135,6 +141,7 @@
 			<th class="table-primary">Recuperatorio 1</th>
 			<th class="table-primary">Recuperatorio 2</th>
 			<th class="table-primary">Estado</th>
+			<th class="table-primary"> Cargar</th>
 		</tr>
 		</thead>
 		<tbody>	

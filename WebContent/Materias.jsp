@@ -1,25 +1,42 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="DaoImpl.AlumnoDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Entidad.Pais" %>
-<%@page import="Entidad.Provincia" %>
-<%@page import="Entidad.Localidad" %>
-<%@page import="Entidad.Docente" %>
-<%@page import="DaoImpl.PaisDaoImpl" %>
+<%@page import="Entidad.Curso" %>
+<%@page import="Entidad.Alumno" %>
+<%@page import="Entidad.Alumnoxcurso" %>
 <%@page import="Entidad.Curso" %>
 <%@page import="Entidad.Docente" %>
 <%@page import="Entidad.Usuario" %>
+<%@page import="Entidad.Materia" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link rel="Stylesheet" href="Css/MenuAgregarProfesor.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
+<title>Materias</title>
+<link rel="Stylesheet" href="Css/ListadoProfesores.css" />
 
-<header>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary position-relative">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+</head>
+<body>
+	<%
+	ArrayList<Materia> listaMaterias = null;
+	
+	if(request.getAttribute("listaMaterias") != null) {
+	
+	listaMaterias = (ArrayList<Materia>)request.getAttribute("listaMaterias"); 
+	}
+	
+	%>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary position-relative">
 			 <div class="container-fluid">
 				   <div class="collapse navbar-collapse" id="navbarScroll">
 				   
@@ -104,135 +121,65 @@
 				    </div>
 			  </div>
 		</nav>
-   	 
-           
-</header>
-<body>
-	<% 
-	int legajo=1000;
-	if(request.getAttribute("legajo")!=null)
-		{
-		legajo = (int)request.getAttribute("legajo");
-		}
-
- 	%>
-	<%
-   		ArrayList<Pais> list = null;
-   		if (request.getAttribute("ListarPais")!=null)
-   		{
- 			list = (ArrayList<Pais>) request.getAttribute("ListarPais");
-   		}
-     %>
-     <%
-   		ArrayList<Provincia> listprov = null;
-     	if(request.getAttribute("ListarProvincia")!=null){
-    		listprov= (ArrayList<Provincia>) request.getAttribute("ListarProvincia");}
-     %>
-     <%				
-	ArrayList<Localidad> listLocalidad = null;
-	
-	if(request.getAttribute("ListarLocalidad")!=null){
-	 listLocalidad = (ArrayList<Localidad>) request.getAttribute("ListarLocalidad");}
-	%>
+    	 
+            
+	</header>
 	<div class="container">
-	<h1><p align="center";" ><b>Agregar Docente </b> </p></h1>
-	
-		<form action="ServletDocente" method="post" class ="w-25">
-		<div class="mb-3">
-		   <label  class="form-label" >Legajo</label>
-		   <input type="text" class="form-control" value="<%=legajo%>" readonly="true" name="Legajo">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Documento</label>
-		   <input type="number" class="form-control" name="txtDni">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Nombre</label>
-		   <input type="text" class="form-control" name="txtNombre">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Apellido</label>
-		   <input type="text" class="form-control" name="txtApellido">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Fecha de Nacimiento</label>
-		   <input type="text" class="form-control" name="txtFecha">
-		   <div  class="form-text">dd/mm/aaaa</div>
-		 </div>
-		 
-		 <div class="mb-3">
-		 <label name="txtNacionalidad" class="form-label">Nacionalidad</label>
-		 <select class="form-select" name="Nacionalidad">
-		  <option value=null selected>Elegir un pais</option>
-		  	<% if (list!= null)
-     		for(Pais t : list){
-    	 	%>	
-			<option value=<%= t.getIdPais() %> ><%= t.getDescripcionPais()%> </option>
-			<%} %>
-		</select>
-		</div>
-		
-		<div class="mb-3">
-		 <label name="txtProvincia" class="form-label">Provincia</label>
-		 <select class="form-select" name="Provincia">
-		  <option value=null selected disabled hidden>Elegir una Provincia</option>
-     		<% if(listprov!=null)
-     		for(Provincia t : listprov){
-    	 	%>
-			<option value=<%= t.getIdProvincia() %>><%=t.getDescripcionProv()%></option>
-			<%} %>
-			</select>
-			</div>
+	<h1 class="text-center">Materias</h1>
+		 <table class="table table-primary display w-25" id="tabla_id" > 
+		<thead>
+		<tr class="table-primary">
+			<th class="table-primary">Id</th>
+			<th class="table-primary">Nombre Materia</th>
 			
-		<div class="mb-3">
-		 <label name=txtLocalidad class="form-label">Localidad</label>
-		 <select class="form-select" name="Localidad">
-		  <option value=null selected disabled hidden>Elegir una Localidad</option>
-		     <% if(listLocalidad!=null)
-	     	for(Localidad t : listLocalidad){ %>
-			<option value=<%= t.getIdLocalidad() %>><%=t.getDescripcion()%></option>
-			<%} %>
-		</select>
-		</div>
-		
-		 <div class="mb-3">
-		   <label  class="form-label">Direccion</label>
-		   <input type="text" class="form-control" name="txtDireccion">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Email</label>
-		   <input type="email" class="form-control" name="txtEmail">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Contraseña</label>
-		   <input type="password" class="form-control" name="txtContraseña">
-		 </div>
-		 
-		 <div class="mb-3">
-		   <label  class="form-label">Telefono</label>
-		   <input type="number" class="form-control" name="txtTelefono">
-		 </div>
-		 
-		 <button type="submit" class="btn btn-primary mb-3" name="btnAgregar">Agregar</button>
-		 </form>
+		</tr>
+		</thead>
+		<tbody>	
+		<% 
+			if(listaMaterias != null){
+			for(Materia materia : listaMaterias){
+			%>
+			
+		<tr class="table-primary">
+			<form name="formulario" action="ServletCursos" method="post">
+					<td><%=materia.getIdMateria() %></td>
+					<td><%=materia.getNombreMateria() %></td>
+			</form>
+				</tr>
+			<%  }
+			} %>
+			</tbody>
+	</table>
 	
-	<%
-			int estado=0;
-			if(request.getAttribute("estadoAgregar") != null)
-				estado = (int)request.getAttribute("estadoAgregar");
-		%>
-		<% if(estado == 1){ %>
-			<b>¡Profesor agregado con exito! </b>
-			<%} if(estado==-1){ %>
-			<b>¡No se pudo agregar el profesor, debe completar todos los campos! </b>
-			<%}%>
+	<form method="post" action="ServletMaterias">
+	<div class="mb-3 w-25">
+		   <label  class="form-label" >Agregar Materia</label>
+		   <input type="text" class="form-control" placeholder="Materia" name="Materia">
+		 </div>
+		 <button type="submit" class="btn btn-primary mb-3" name="AgregarMateria">Agregar</button>
+	</form>
+	
+	
+		
+		
 	</div>
+	
+	<% if(request.getAttribute("estadoAgregar")!= null){
+		if((int)request.getAttribute("estadoAgregar")==1){%>
+		<p>Agregado con éxito!</p><% }%>
+		<% if((int)request.getAttribute("estadoAgregar") == -1){ %>
+		<p>Error al agregar<p>
+		<% } %> 
+		<% } %>
+	
+	<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#tabla_id').DataTable({
+	    	
+	    });
+	} );
+	
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
+	</body>
 </html>

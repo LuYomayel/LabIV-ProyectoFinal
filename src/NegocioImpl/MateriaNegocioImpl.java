@@ -12,5 +12,14 @@ public class MateriaNegocioImpl implements MateriaNegocio{
 	public ArrayList<Materia> listarMaterias() {
 		return materiaDao.listarMaterias();
 	}
+	@Override
+	public int agregarMateria(Materia materia) {
+		int estado = -1;
+		if(materia.getNombreMateria()!=null && materia.getNombreMateria() != "") {
+			estado = materiaDao.agregarMateria(materia);
+		}
+		
+		return estado;
+	}
 
 }

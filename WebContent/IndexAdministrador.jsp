@@ -58,10 +58,18 @@
 				          
 				          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 				            <li><a href="ServletCursos?Agregar=1" class="dropdown-item">Agregar cursado</a></li>
+				            <li><a href="#" class="dropdown-item">Listado de Cursos</a></li>
 				            <li><a href="#" class="dropdown-item">Agregar alumnos a cursado</a></li>
 				            
 				          </ul>
 				        </li>
+				        <li class="nav-item">
+				          <a class="nav-link " href="ServletMaterias?Materias=1" id="navbarScrollingDropdown" role="button">
+				            Materias
+				          </a>
+				          
+				        </li>
+				        
 				        <% } %>
 				        	
 				        <% if(session.getAttribute("docente")!=null){ 
