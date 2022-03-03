@@ -242,6 +242,42 @@ public class AlumnoDaoImpl implements AlumnoDao{
 		return x;
 	}
 	
+	public Alumno getAlumnoId(int id) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		Alumno x = new Alumno();
+		Connection cn = null;
+		try {
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			String query = "SELECT * FROM alumnos WHERE idAlumno="+id;
+			ResultSet rs = st.executeQuery(query);
+			rs.next();
+			x.setId(rs.getInt("idAlumno"));
+			x.setLegajo(rs.getInt("legajo"));
+			x.setDni(rs.getString("dni"));
+			x.setNombre(rs.getString("nombre"));
+			x.setApellido(rs.getString("apellido"));
+			x.setFechanacimiento(rs.getString("FechaNac"));
+			x.setDireccion(rs.getString("direccion"));
+			x.setNacionalidad(rs.getString("idPais"));
+			x.setProvincia(rs.getString("idProvincia"));
+			x.setLocalidad(rs.getString("idLocalidad"));
+			x.setEmail(rs.getString("email"));
+			x.setTelefono(rs.getString("telefono"));	
+			x.setIdCarrera(rs.getInt("idcarrera"));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return x;
+	}
+	
 	public int modificarAlumno(Alumno a) {
 		//Alumno alumno = new Alumno();
 		try {

@@ -13,4 +13,5 @@ public interface AlumnoDao {
 	public int modificarAlumno(Alumno alumno);
 	public Alumno getAlumno(int legajo);
 	public int agregarAlCurso(ArrayList<Alumno> listaAlumnos, int id);
+	public Alumno getAlumnoId(int id);
 }

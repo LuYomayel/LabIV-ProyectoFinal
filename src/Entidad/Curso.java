@@ -9,7 +9,7 @@ public class Curso {
 	private int año;
 	private Docente docente;
 	private ArrayList<Alumno> alumno;
-	
+	public ArrayList<Alumnoxcurso> listaAlumnosCurso;
 	public Curso() {
 		
 	}
@@ -78,4 +78,17 @@ public class Curso {
 		return docente.toString();
 		
 	}
+
+
+	public ArrayList<Alumnoxcurso> getListaAlumnosCurso() {
+		return listaAlumnosCurso;
+	}
+
+
+	public void setListaAlumnosCurso(ArrayList<Alumnoxcurso> listaAlumnosCurso) {
+		this.listaAlumnosCurso = listaAlumnosCurso;
+	}
+	
+	
+	
 }

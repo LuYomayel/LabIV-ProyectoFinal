@@ -227,5 +227,39 @@ public class DocenteDaoImpl implements DocenteDao{
 	
 	}
 
+	@Override
+	public Docente getDocente(int idDocente) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Docente x = new Docente();
+		Connection cn = null;
+		try {
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			String query = "SELECT * FROM docentes WHERE idDocente="+idDocente;
+			ResultSet rs = st.executeQuery(query);
+			rs.next();
+			x.setLegajo(rs.getInt("legajo"));
+			x.setDni(rs.getString("dni"));
+			x.setNombre(rs.getString("nombre"));
+			x.setApellido(rs.getString("apellido"));
+			/*x.setFechanacimiento(rs.getString("fechanacimiento"));
+			x.setDireccion(rs.getString("direccion"));
+			x.setLocalidad(rs.getString("localidad"));
+			x.setNacionalidad(rs.getString("nacionalidad"));*/			
+			x.setEmail(rs.getString("email"));
+			x.setTelefono(rs.getString("telefono"));			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return x;
+	}
+
 	
 }

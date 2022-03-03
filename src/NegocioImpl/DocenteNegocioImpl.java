@@ -1,4 +1,4 @@
-/*package NegocioImpl;
+package NegocioImpl;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class DocenteNegocioImpl implements DocenteNegocio{
 	
 	@Override
 	public int agregarDocente(Docente docente) {
-		boolean estado=false;
+		int estado=-1;
 		if(docente.getLegajo()>0 && 
 				docente.getDni().trim().length()>0 &&
 				docente.getNombre().trim().length()>0 &&
@@ -21,12 +21,13 @@ public class DocenteNegocioImpl implements DocenteNegocio{
 				docente.getDireccion().trim().length()>0 &&
 				docente.getLocalidad().trim().length()>0 &&
 				docente.getNacionalidad().trim().length()>0 &&
+				docente.getProvincia().trim().length()>0 &&
 				docente.getEmail().trim().length()>0 &&
-				docente.getTelefono().trim().length()>0 && 
-				docente.getIdCarrera()>0)
+				docente.getTelefono().trim().length()>0) 
 		{
 			estado=ddao.agregarDocente(docente);
 		}
+		System.out.println("Estado:" + estado);
 		return estado;
 	}
 
@@ -37,9 +38,9 @@ public class DocenteNegocioImpl implements DocenteNegocio{
 
 	@Override
 	public int eliminarDocente(int id) {
-		boolean estado=false;
-		String Apellido = ddao.getApellido;
-		Docente docente =obtenerDocente(apellido);
+		int estado=-1;
+		DocenteDaoImpl docenteDao = new DocenteDaoImpl();
+		Docente docente = docenteDao.getDocente(id);
 		if(docente.getLegajo()>0 )//El tema es que el ID lo maneja la base de datos. 
 		{
 			estado=ddao.eliminarDocente(id);
@@ -49,24 +50,51 @@ public class DocenteNegocioImpl implements DocenteNegocio{
 
 	@Override
 	public Docente obtenerDocente(String apellido) {
-		boolean estado=false;
-		Docente docente = obtenerDocente(Apellido);
+		Docente docente = new Docente();
+		docente = obtenerDocente(apellido);
 		if(docente.getLegajo()>0 )
 		{
-			estado=ddao.obtenerDocente(Apellido);
+			docente=ddao.obtenerDocente(apellido);
 		}
-		return estado; 
+		return docente; 
 	}
 
 	@Override
 	public Docente obtenerIdDocente(String mail) {
-		boolean estado=false;
-		Docente docente = obtenerIdDocente(mail);
+		Docente docente = new Docente();
+		//Docente docente = obtenerIdDocente(mail);
 		if(docente.getLegajo()>0 )
 		{
-			estado=ddao.obtenerIdDocente(mail);
+			//docente=ddao.obtenerIdDocente(mail);
 		}
-		return estado; 
+		return docente; 
 	}
 
-}*/
+	@Override
+	public Docente obtenerDocente(int legajo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int modificarDocente(Docente docente) {
+		int estado=-1;
+		if(docente.getLegajo()>0 && 
+				docente.getDni().trim().length()>0 &&
+				docente.getNombre().trim().length()>0 &&
+				docente.getApellido().trim().length()>0 &&
+				docente.getFechanacimiento().trim().length()>0 &&
+				docente.getDireccion().trim().length()>0 &&
+				docente.getLocalidad().trim().length()>0 &&
+				docente.getNacionalidad().trim().length()>0 &&
+				docente.getProvincia().trim().length()>0 &&
+				docente.getEmail().trim().length()>0 &&
+				docente.getTelefono().trim().length()>0) 
+		{
+			estado=ddao.modificarDocente(docente);
+		}
+		System.out.println("Estado:" + estado);
+		return estado;
+	}
+
+}

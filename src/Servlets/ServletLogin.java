@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DaoImpl.AlumnoDaoImpl;
+import DaoImpl.CursoDaoImpl;
 import DaoImpl.DocenteDaoImpl;
 import DaoImpl.UsuarioDaoImpl;
 import Entidad.Alumno;
+import Entidad.Curso;
+import Entidad.Docente;
 import Entidad.Usuario;
 
 /**
@@ -36,7 +39,13 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		if(request.getParameter("CerrarSesion")!=null) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("docente");
+			session.removeAttribute("admin");
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");   
+	        rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -54,15 +63,22 @@ public class ServletLogin extends HttpServlet {
 			UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
 			int login = usuarioDao.obtenerUsuario(usuario); 
 			if (login == 1) {
-				DocenteDaoImpl daoDocente = new	DocenteDaoImpl();
-				int idDocente = daoDocente.obtenerIdDocente(usuario.getUsuario());
-				System.out.println("idDocente: "+ idDocente);
-				AlumnoDaoImpl dao = new AlumnoDaoImpl();
-				ArrayList<Alumno> lista= dao.ListarAlumnos();
-				request.setAttribute("listaA", lista);
-				session.setAttribute("sesion", 1);
+				
+				DocenteDaoImpl docenteDao = new DocenteDaoImpl();
+				int idDocente = docenteDao.obtenerIdDocente(usuario.getUsuario());
+				CursoDaoImpl cursoDao = new CursoDaoImpl();
+				AlumnoDaoImpl alumnoDao = new AlumnoDaoImpl();
+				ArrayList<Curso> listaCursos = new ArrayList<Curso>();
+				listaCursos = cursoDao.listarCursos(idDocente);
+				for(Curso curso : listaCursos) {
+					curso.setAlumno(alumnoDao.ListarAlumnosCurso(curso.getId()));
+				}
+				Docente docente  = docenteDao.getDocente(idDocente);
 				session.setAttribute("idDocenteSesion", idDocente);
-				RequestDispatcher rd = request.getRequestDispatcher("/ListadoAlumnos.jsp");   
+				session.setAttribute("docente", docente);
+				request.setAttribute("listaC", listaCursos);
+				session.setAttribute("sesion", 1);
+				RequestDispatcher rd = request.getRequestDispatcher("/ListadoCursos.jsp");   
 		        rd.forward(request, response);
 			}
 			else if(login == 0){
@@ -70,12 +86,15 @@ public class ServletLogin extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");   
 		        rd.forward(request, response);
 			}else if(login ==2) {
+				System.out.println(usuario.getUsuario());
+				session.setAttribute("admin", usuario);
 				session.setAttribute("sesion", 2);
 				RequestDispatcher rd = request.getRequestDispatcher("/IndexAdministrador.jsp");   
 		        rd.forward(request, response);
 			}
 			
 		}
+		
 	}
 
 }

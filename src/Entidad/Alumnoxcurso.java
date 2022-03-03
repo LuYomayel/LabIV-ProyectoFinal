@@ -1,4 +1,4 @@
-/*package Entidad;
+package Entidad;
 
 public class Alumnoxcurso {
 	private int id;
@@ -18,7 +18,7 @@ public class Alumnoxcurso {
 	public Alumnoxcurso(String estado, double parcial1, double parcial2, double recupera1, double recupera2) {
 		super();
 		
-		this.id = devuelveProximoId();
+		//this.id = devuelveProximoId();
 		this.estado = estado;
 		this.parcial1 = parcial1;
 		this.parcial2 = parcial2;
@@ -85,7 +85,7 @@ public class Alumnoxcurso {
 		return idCurso;
 	}
 
-	public void setIdCurso(int int1) {
+	public void setIdCurso(int idCurso) {
 		this.idCurso = idCurso;
 	}
 	
@@ -93,10 +93,10 @@ public class Alumnoxcurso {
 		return idAlumno;
 	}
 	
-	public void setIdAlumno(int int1) {
+	public void setIdAlumno(int idAlumno) {
 		this.idAlumno = idAlumno;
 	}
 
 	
 	
-}*/
+}

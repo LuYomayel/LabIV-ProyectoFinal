@@ -1,4 +1,4 @@
-/*package Negocio;
+package Negocio;
 
 import java.util.ArrayList;
 
@@ -11,4 +11,5 @@ public interface AlumnoNegocio {
 	//¿Apellido y nombre?
 	public Alumno obtenerAlumno(String Apellido);
 	Alumno obtenerAlumno(int id);
-}*/
+	public int modificarAlumno(Alumno alumno);
+}
