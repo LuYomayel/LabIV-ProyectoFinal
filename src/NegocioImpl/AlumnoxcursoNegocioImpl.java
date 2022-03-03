@@ -23,10 +23,10 @@ public class AlumnoxcursoNegocioImpl implements AlumnoxcursoNegocio{
 		System.out.println(alumno.getIdCurso());
 		if(		!( alumno.getIdAlumno() <= 0) &&
 				!( alumno.getIdCurso() <= 0) &&
-				alumno.getParcial1()>0 && alumno.getParcial1()<10 &&
-				alumno.getParcial2()>0 && alumno.getParcial2()<10 &&
-				alumno.getRecupera1()>0 && alumno.getRecupera1()<10 &&
-				alumno.getRecupera2()>0 && alumno.getRecupera2()<10 
+				(alumno.getParcial1()>=0 && alumno.getParcial1()<=10) &&
+				(alumno.getParcial2()>=0 && alumno.getParcial2()<=10) &&
+				(alumno.getRecupera1()>=0 && alumno.getRecupera1()<=10) &&
+				(alumno.getRecupera2()>=0 && alumno.getRecupera2()<=10) 
 				) {
 			estado = axcDao.agregarAlumnoxcurso(alumno);
 		}

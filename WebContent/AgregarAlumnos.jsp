@@ -1,5 +1,7 @@
 <%@page import="Entidad.Alumno" %>
 <%@page import="DaoImpl.PaisDaoImpl" %>
+<%@page import="DaoImpl.ProvinciaDaoImpl" %>
+<%@page import="DaoImpl.LocalidadDaoImpl" %>
 <%@page import="Entidad.Pais" %>
 <%@page import="Entidad.Provincia" %>
 <%@page import="Entidad.Localidad" %>
@@ -139,7 +141,7 @@
 	<div class="container">
 	<h1 class=""><p align="center";"><b>Agregar Alumnos </b> </p></h1>
 	
-	<form action="ServletAlumno" method="get" class="w-25" >
+	<form action="ServletAlumno" method="get" class="w-25" name="ejemplo2" target="_blank" id="form">
 		<div class="mb-3">
 		   <label  class="form-label" >Legajo</label>
 		   <input type="text" class="form-control" value="<%=legajo%>" readonly="true" name="Legajo">
@@ -168,8 +170,15 @@
 		 
 		 <div class="mb-3">
 		 <label name="txtNacionalidad" class="form-label">Nacionalidad</label>
-		 <select class="form-select" name="Nacionalidad" >
-		  <option value=null selected>Elegir un pais</option>
+		 <select class="form-select" name="Nacionalidad" id="Nacionalidad" onChange="goToServer()">
+		  <% if(request.getParameter("idPais")==null){ %><option value=null selected disabled hidden>Elegir un Pais</option><% } %>
+		  <% if(request.getParameter("idPais")!=null){ 
+		  PaisDaoImpl paisDao = new PaisDaoImpl();
+		  Pais pais = paisDao.obtenerPais(Integer.parseInt(request.getParameter("idPais")));
+		  %>
+		  <option value=<%=pais.getIdPais() %> selected disabled hidden><%= pais.getDescripcionPais() %></option>
+		  
+		  <% } %>
 		  	<% if (list!= null)
      		for(Pais t : list){
     	 	%>	
@@ -177,30 +186,38 @@
 			<%} %>
 		</select>
 		</div>
-		
+		<% if(listprov != null){ %>
 		<div class="mb-3">
 		 <label name="txtProvincia" class="form-label">Provincia</label>
-		 <select class="form-select" name="Provincia" >
-		  <option value=null selected disabled hidden>Elegir una Provincia</option>
-     		<% if(listprov!=null)
+		 <select class="form-select" name="Provincia" id="Provincia" onChange="goToServer1()">
+		  <% if(request.getParameter("LocalidadListar")==null){ %><option value=null selected disabled hidden>Elegir una Provincia</option><% } %>
+		  <% if(request.getParameter("LocalidadListar")!=null){ 
+		  ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
+		  Provincia provincia = provDao.obtenerProvincia(Integer.parseInt(request.getParameter("LocalidadListar")));
+		  %>
+		  <option value=<%=provincia.getIdProvincia() %> selected disabled hidden><%= provincia.getDescripcionProv() %></option>
+		  
+		  <% } %>
+     		<% 
      		for(Provincia t : listprov){
     	 	%>
-			<option value=<%= t.getIdProvincia() %>><%=t.getDescripcionProv()%></option>
+			<option value=<%= t.getIdProvincia()  %>><%=t.getDescripcionProv()%></option>
 			<%} %>
 			</select>
 			</div>
-			
+		<% } %>
+		<% if(listLocalidad!=null){ %>
 		<div class="mb-3">
 		 <label name="txtLocalidad" class="form-label">Localidad</label>
-		 <select class="form-select" name="Localidad">
+		 <select class="form-select" name="Localidad" id="Localidad">
 		  <option value=null selected disabled hidden>Elegir una Localidad</option>
-		     <% if(listLocalidad!=null)
+		     <% 
 	     	for(Localidad t : listLocalidad){ %>
 			<option value=<%= t.getIdLocalidad() %>><%=t.getDescripcion()%></option>
 			<%} %>
 		</select>
 		</div>
-		
+		<% } %>
 		 <div class="mb-3">
 		   <label  class="form-label">Direccion</label>
 		   <input type="text" class="form-control" name="txtDireccion">
@@ -320,5 +337,7 @@
 			<%}%>
 			</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="./Scripts/scripts.js"></script>
+	<script src="./Scripts/javascript.js"></script>
 </body>
 </html>

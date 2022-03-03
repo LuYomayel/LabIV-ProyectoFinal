@@ -38,7 +38,7 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	}
 
 	@Override
-	public ArrayList<Provincia> ListarProvincia() {
+	public ArrayList<Provincia> ListarProvincia(int idPais) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -51,7 +51,7 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 			cn = DriverManager.getConnection(host+dbName,user,pass);
 			//String query = "Select idProvincia, descripcion, idPais from provincias";
 					Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select idProvincia, descripcion, idPais FROM provincias");
+			ResultSet rs = st.executeQuery("Select idProvincia, descripcion, idPais FROM provincias where idPais="+idPais);
 			
 			while (rs.next()) {
 			Provincia x = new Provincia();

@@ -50,20 +50,7 @@ public class ServletDocente extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		if(request.getParameter("btnEliminar")!=null)
-		{
-			String aux = request.getParameter("idDocente").toString();
-			
-			int id = Integer.parseInt(request.getParameter("idDocente").toString()) ;
-			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
-			int estado = docenteNegocio.eliminarDocente(id);
-			System.out.println("Hola filas: "+estado);
-            ArrayList<Docente> lista= docenteNegocio.ListarDocentes();
-			request.setAttribute("listaD", lista);
-			request.setAttribute("estadoEliminar", estado);
-			RequestDispatcher rd = request.getRequestDispatcher("/ListadoProfesores.jsp");   
-	        rd.forward(request, response);
-		}
+		
 		if(request.getParameter("Agregar")!=null) {
 			int legajo = 1000;
 			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
@@ -84,9 +71,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
 			request.setAttribute("ListarLocalidad", listaLocal);
@@ -101,9 +88,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
 			request.setAttribute("ListarLocalidad", listaLocal);
@@ -140,9 +127,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
 
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
@@ -178,9 +165,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
 
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
@@ -195,6 +182,21 @@ public class ServletDocente extends HttpServlet {
 				
 				
 			
+		}
+		if(request.getParameter("btnEliminar")!=null)
+		{
+			
+			String aux = request.getParameter("idDocente").toString();
+			
+			int id = Integer.parseInt(request.getParameter("idDocente").toString()) ;
+			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
+			int estado = docenteNegocio.eliminarDocente(id);
+			
+            ArrayList<Docente> lista= docenteNegocio.ListarDocentes();
+			request.setAttribute("listaD", lista);
+			request.setAttribute("estadoEliminar", estado);
+			RequestDispatcher rd = request.getRequestDispatcher("/ListadoProfesores.jsp");   
+	        rd.forward(request, response);
 		}
 	}
 

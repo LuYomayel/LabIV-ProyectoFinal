@@ -149,17 +149,17 @@
 			</thead>
 			<tbody>
 		
-				<tr>
+				
 <%  if(listaDocentes!=null)
 		for(Docente docente : listaDocentes) 
 		{
-	%>
-					<form name="formulario" action="ServletDocente?idDocente=<%=docente.getId()%>" method="get">
+	%><tr>
+					<form name="formulario" action="ServletDocente" method="post">
 						<td class="table-primary"><%= docente.getLegajo()%>   <input type="hidden" name="idDocente" value="<%=docente.getId()%>"> </td>
 						<td class="table-light"><%= docente.getDni()%></td>
 						<td class="table-light"><%= docente.getNombre()%></td>
 						<td class="table-light"><%= docente.getApellido()%></td>
-						<td class="table-light"><%= docente.getFechanacimiento()%>c</td>
+						<td class="table-light"><%= docente.getFechanacimiento()%></td>
 						<td class="table-light"><%= docente.getDireccion()%></td>
 						<td class="table-light"><%= docente.getNacionalidad()%></td>
 						<td class="table-light"><%= docente.getProvincia()%></td>

@@ -45,6 +45,7 @@ public class DocenteNegocioImpl implements DocenteNegocio{
 		{
 			estado=ddao.eliminarDocente(id);
 		}
+		
 		return estado;  
 	}
 
