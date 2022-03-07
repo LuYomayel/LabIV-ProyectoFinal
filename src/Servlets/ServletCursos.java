@@ -222,6 +222,8 @@ public class ServletCursos extends HttpServlet {
 			
 			AlumnoxcursoNegocioImpl alumnoNegocio = new AlumnoxcursoNegocioImpl();
 			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
+			
+			request.setAttribute("idCurso", idCurso);
 			request.setAttribute("Curso", curso);
 			RequestDispatcher rd = request.getRequestDispatcher("/ListadoNotasAlumnos.jsp");
 			rd.forward(request, response);
@@ -284,6 +286,94 @@ public class ServletCursos extends HttpServlet {
 			
 			
 			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
+			request.setAttribute("Curso", curso);
+			request.setAttribute("estadoModificar", estado);
+			RequestDispatcher rd = request.getRequestDispatcher("/ListadoNotasAlumnos.jsp");
+			rd.forward(request, response);
+		}
+		if(request.getParameter("btnCargar") !=null) {
+			int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+			CursoDaoImpl cursoDao = new CursoDaoImpl();
+			Curso curso = cursoDao.getCurso(idCurso);
+			
+			ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
+			AlumnoxcursoNegocioImpl alumnoNegocio = new AlumnoxcursoNegocioImpl();
+			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
+			
+			System.out.println("size lista alumnos:" + curso.getListaAlumnosCurso().size());
+			
+			for(Alumnoxcurso alumno : curso.getListaAlumnosCurso()) {
+				alumno.setParcial1(0);
+				alumno.setRecupera1(0);
+				alumno.setRecupera2(0);
+				alumno.setParcial2(0);
+				System.out.println(request.getParameter("nGlobal1"));
+				if(request.getParameter("nGlobal1")!= null && request.getParameter("nGlobal1") != "") {
+					
+					double nota1 = Double.parseDouble(request.getParameter("nGlobal1"));
+					alumno.setParcial1(nota1);
+				}
+				if(request.getParameter("nGlobal2")!= null && request.getParameter("nGlobal2")!= "") {
+					
+					double nota1 = Double.parseDouble(request.getParameter("nGlobal2"));
+					alumno.setParcial2(nota1);
+				}
+				if(request.getParameter("rGlobal1")!= null && request.getParameter("rGlobal1")!= "") {
+					
+					double nota1 = Double.parseDouble(request.getParameter("rGlobal1"));
+					alumno.setRecupera1(nota1);
+				}
+				if(request.getParameter("rGlobal2")!= null && request.getParameter("rGlobal2")!= "") {
+					
+					double nota1 = Double.parseDouble(request.getParameter("rGlobal2"));
+					alumno.setRecupera2(nota1);
+				}
+			}
+			
+			for(Alumnoxcurso alumno : curso.getListaAlumnosCurso()) {
+				double notaFinal = 0;
+				double cant = 0;
+				if(alumno.getParcial1()>0) {
+					notaFinal+=alumno.getParcial1();
+					cant++;
+				}
+				if(alumno.getParcial2()>0) {
+					notaFinal+=alumno.getParcial2();
+					cant++;;
+				}
+				if(alumno.getRecupera1()>0) {
+					notaFinal+=alumno.getRecupera1();
+					cant++;;
+				}
+				if(alumno.getRecupera2()>0) {
+					notaFinal+=alumno.getRecupera2();
+					cant++;
+				}
+				double promedio=0;
+				if(notaFinal > 0) {
+					promedio = notaFinal/cant;
+					if(promedio > 0) {
+						if(promedio < 6) {
+							alumno.setEstado("Libre");
+						}
+						if(promedio >= 6 && promedio < 8) {
+							alumno.setEstado("Regular");
+						}
+						if(promedio >= 8) {
+							alumno.setEstado("Promocionado");
+						}
+					}
+				}else {
+					alumno.setEstado(null);
+				}
+				
+			}
+
+			int estado = alumnoNegocio.agregarNotaGlobal(curso.getListaAlumnosCurso());
+			
+			System.out.println("Estado cargar:" + estado);
+			curso.setListaAlumnosCurso(alumnoNegocio.ListarAlumnosxcurso(curso.getId()));
+			
 			request.setAttribute("Curso", curso);
 			request.setAttribute("estadoModificar", estado);
 			RequestDispatcher rd = request.getRequestDispatcher("/ListadoNotasAlumnos.jsp");

@@ -33,5 +33,20 @@ public class AlumnoxcursoNegocioImpl implements AlumnoxcursoNegocio{
 		
 		return estado;
 	}
+	@Override
+	public int agregarNotaGlobal(ArrayList<Alumnoxcurso> listaAlumnos) {
+		int estado = -1;
+		
+		for(Alumnoxcurso alumno : listaAlumnos) {
+			if(alumno.getParcial1() > 0) estado = axcDao.cargarNota1(alumno);
+			if(alumno.getParcial2() > 0) estado = axcDao.cargarNota2(alumno);
+			if(alumno.getRecupera1() > 0) estado = axcDao.cargarRecupera1(alumno);
+			if(alumno.getRecupera2() > 0) estado = axcDao.cargarRecupera2(alumno);
+			estado = axcDao.setEstado(alumno);
+		}
+		
+		
+		return estado;
+	}
 
 }

@@ -135,7 +135,124 @@ public class AlumnoxcursoDaoImpl implements AlumnoxcursoDao{
 		}
 		return x;
 	}
+
+
+	@Override
+	public int cargarNota1(Alumnoxcurso alumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		String query="Update  alumnosxcurso set parcial1="+ alumno.getParcial1() +" where idAlumno="+alumno.getIdAlumno()+" and idCurso=" + alumno.getIdCurso();
+		Connection cn = null;
+		int filas =0;
+		try {
+			
+			
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			filas = st.executeUpdate(query);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
+
+	@Override
+	public int cargarNota2(Alumnoxcurso alumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		String query="Update  alumnosxcurso set parcial2="+ alumno.getParcial2() +" where idAlumno="+alumno.getIdAlumno()+" and idCurso=" + alumno.getIdCurso();
+		Connection cn = null;
+		int filas =0;
+		try {
+			
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			filas = st.executeUpdate(query);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
+
+	@Override
+	public int cargarRecupera1(Alumnoxcurso alumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		String query="Update  alumnosxcurso set recuperatorio1="+ alumno.getRecupera1() +" where idAlumno="+alumno.getIdAlumno()+" and idCurso=" + alumno.getIdCurso();
+		Connection cn = null;
+		int filas =0;
+		try {
+			
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			filas = st.executeUpdate(query);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
+
+	@Override
+	public int cargarRecupera2(Alumnoxcurso alumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		String query="Update  alumnosxcurso set recuperatorio2="+ alumno.getRecupera2() +" where idAlumno="+alumno.getIdAlumno()+" and idCurso=" + alumno.getIdCurso();
+		Connection cn = null;
+		int filas =0;
+		try {
+			
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			filas = st.executeUpdate(query);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
 	
-	
+	public int setEstado(Alumnoxcurso alumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();						
+		}
+		String query="Update  alumnosxcurso set estado='"+ alumno.getEstado() +"' where idAlumno="+alumno.getIdAlumno()+" and idCurso=" + alumno.getIdCurso();
+		Connection cn = null;
+		int filas =0;
+		try {
+			System.out.println("Estado "+alumno.getEstado());
+			cn = DriverManager.getConnection(host+dbName,user,pass);
+			Statement st =cn.createStatement();
+			filas = st.executeUpdate(query);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
 	
 }
