@@ -170,15 +170,8 @@
 		 
 		 <div class="mb-3">
 		 <label name="txtNacionalidad" class="form-label">Nacionalidad</label>
-		 <select class="form-select" name="Nacionalidad" id="Nacionalidad" onChange="goToServer()">
-		  <% if(request.getParameter("idPais")==null){ %><option value=null selected disabled hidden>Elegir un Pais</option><% } %>
-		  <% if(request.getParameter("idPais")!=null){ 
-		  PaisDaoImpl paisDao = new PaisDaoImpl();
-		  Pais pais = paisDao.obtenerPais(Integer.parseInt(request.getParameter("idPais")));
-		  %>
-		  <option value=<%=pais.getIdPais() %> selected disabled hidden><%= pais.getDescripcionPais() %></option>
-		  
-		  <% } %>
+		 <select class="form-select" name="Nacionalidad">
+		  <option value=null selected>Elegir un pais</option>
 		  	<% if (list!= null)
      		for(Pais t : list){
     	 	%>	
@@ -189,29 +182,22 @@
 		<% if(listprov != null){ %>
 		<div class="mb-3">
 		 <label name="txtProvincia" class="form-label">Provincia</label>
-		 <select class="form-select" name="Provincia" id="Provincia" onChange="goToServer1()">
-		  <% if(request.getParameter("LocalidadListar")==null){ %><option value=null selected disabled hidden>Elegir una Provincia</option><% } %>
-		  <% if(request.getParameter("LocalidadListar")!=null){ 
-		  ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-		  Provincia provincia = provDao.obtenerProvincia(Integer.parseInt(request.getParameter("LocalidadListar")));
-		  %>
-		  <option value=<%=provincia.getIdProvincia() %> selected disabled hidden><%= provincia.getDescripcionProv() %></option>
-		  
-		  <% } %>
-     		<% 
+		 <select class="form-select" name="Provincia">
+		  <option value=null selected disabled hidden>Elegir una Provincia</option>
+     		<% if(listprov!=null)
      		for(Provincia t : listprov){
     	 	%>
-			<option value=<%= t.getIdProvincia()  %>><%=t.getDescripcionProv()%></option>
+			<option value=<%= t.getIdProvincia() %>><%=t.getDescripcionProv()%></option>
 			<%} %>
 			</select>
 			</div>
 		<% } %>
 		<% if(listLocalidad!=null){ %>
 		<div class="mb-3">
-		 <label name="txtLocalidad" class="form-label">Localidad</label>
-		 <select class="form-select" name="Localidad" id="Localidad">
+		 <label name=txtLocalidad class="form-label">Localidad</label>
+		 <select class="form-select" name="Localidad">
 		  <option value=null selected disabled hidden>Elegir una Localidad</option>
-		     <% 
+		     <% if(listLocalidad!=null)
 	     	for(Localidad t : listLocalidad){ %>
 			<option value=<%= t.getIdLocalidad() %>><%=t.getDescripcion()%></option>
 			<%} %>

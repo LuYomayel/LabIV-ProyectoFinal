@@ -71,9 +71,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
 			request.setAttribute("ListarLocalidad", listaLocal);
@@ -88,9 +88,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
 			request.setAttribute("ListarLocalidad", listaLocal);
@@ -127,9 +127,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
 
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
@@ -165,9 +165,9 @@ public class ServletDocente extends HttpServlet {
 			PaisDaoImpl pDao = new PaisDaoImpl();
 			ArrayList<Pais> listaPais = pDao.ListarPais();
 			ProvinciaDaoImpl provDao = new ProvinciaDaoImpl();
-			ArrayList<Provincia> listaProv = provDao.ListarProvincia(1);
+			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
-			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad(1);
+			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
 
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
