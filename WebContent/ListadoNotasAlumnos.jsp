@@ -81,7 +81,7 @@
 				          
 				          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 				            <li><a href="ServletCursos?Agregar=1" class="dropdown-item">Agregar cursado</a></li>
-				            <li><a href="#" class="dropdown-item">Agregar alumnos a cursado</a></li>
+				            
 				            
 				          </ul>
 				        </li>
@@ -172,6 +172,28 @@
 			</tbody>
 	</table>
 
+	</form>
+	<hr>
+	<h1 class="text-center">Agregar Nota a todos</h1>
+	<form action="ServletCursos" method="post" class="w-25" name="ejemplo2" id="form">
+	<div class="mb-3">
+		   <label  class="form-label" >Nota 1</label>
+		   <input type="number" class="form-control"    name="nGlobal1"> 
+		 </div>
+		 <div class="mb-3">
+		   <label  class="form-label" >Nota 2</label>
+		   <input type="number" class="form-control"   name="nGlobal2">
+		 </div>
+		 <div class="mb-3">
+		   <label  class="form-label" >Recuperatorio 1</label>
+		   <input type="number" class="form-control"    name="rGlobal1">
+		 </div>
+		 <div class="mb-3">
+		   <label  class="form-label" >Recuperatorio 2</label>
+		   <input type="number" class="form-control"    name="rGlobal2">
+		 </div>
+		 <input  name="idCurso" value="<%=curso.getId()%>" hidden> </td>
+		 <button type="submit" class="btn btn-primary mb-3" name="btnCargar">Cargar</button>
 	</form>
 	<% if(request.getAttribute("estadoModificar")!= null){
 		if((int)request.getAttribute("estadoModificar")>=1){%>

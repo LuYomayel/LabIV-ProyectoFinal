@@ -73,7 +73,7 @@ if(session.getAttribute("listaAlumnosACursado")!=null)
 				          
 				          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 				            <li><a href="ServletCursos?Agregar=1" class="dropdown-item">Agregar cursado</a></li>
-				            <li><a href="#" class="dropdown-item">Agregar alumnos a cursado</a></li>
+				           
 				            
 				          </ul>
 				        </li>
