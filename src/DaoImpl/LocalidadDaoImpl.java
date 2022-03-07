@@ -37,7 +37,7 @@ public class LocalidadDaoImpl implements LocalidadDao {
 		return filas;
 	}
 	@Override
-	public ArrayList<Localidad> ListarLocalidad(int idProvincia) {
+	public ArrayList<Localidad> ListarLocalidad() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -48,7 +48,7 @@ public class LocalidadDaoImpl implements LocalidadDao {
 		Connection cn= null;
 		try {
 			cn = DriverManager.getConnection(host+dbName,user,pass);
-			String query = "Select idLocalidad, descripcion, idProvincia from localidades where idProvincia="+ idProvincia;
+			String query = "Select idLocalidad, descripcion, idProvincia from localidades";
 					Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
