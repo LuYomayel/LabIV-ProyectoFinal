@@ -58,7 +58,7 @@ public class DocenteDaoImpl implements DocenteDao{
 		try {
 			cn = DriverManager.getConnection(host+dbName,user,pass);
 			String query = "\r\n" + 
-					"SELECT a.idDocente Id,a.legajo Legajo,a.dni Dni,a.nombre Nombre,a.apellido Apellido, date_format(a.FechaNac , \"%d/%m/%Y\") FechaNacimiento, a.direccion Direccion, p.descripcion Pais, pr.descripcion Provincia, l.descripcion Localidad, a.email Email, a.telefono Telefono  FROM docentes a join paises p on p.idPais = a.idPais join provincias pr on pr.idPais = p.idPais join localidades l on l.idLocalidad = a.idLocalidad where a.estado = 1;\r\n" + 
+					"SELECT a.idDocente Id,a.legajo Legajo,a.dni Dni,a.nombre Nombre,a.apellido Apellido, date_format(a.FechaNac , \"%d/%m/%Y\") FechaNacimiento, a.direccion Direccion, p.descripcion Pais, pr.descripcion Provincia, l.descripcion Localidad, a.email Email, a.telefono Telefono  FROM docentes a join paises p on p.idPais = a.idPais join provincias pr on pr.idProvincia = a.idProvincia join localidades l on l.idLocalidad = a.idLocalidad where a.estado = 1;\r\n" + 
 					"";
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery(query);

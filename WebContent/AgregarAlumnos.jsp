@@ -141,7 +141,7 @@
 	<div class="container">
 	<h1 class=""><p align="center";"><b>Agregar Alumnos </b> </p></h1>
 	
-	<form action="ServletAlumno" method="get" class="w-25" name="ejemplo2" target="_blank" id="form">
+	<form action="ServletAlumno" method="post" class="w-25" name="ejemplo2" id="form">
 		<div class="mb-3">
 		   <label  class="form-label" >Legajo</label>
 		   <input type="text" class="form-control" value="<%=legajo%>" readonly="true" name="Legajo">
@@ -221,94 +221,7 @@
 		 
 		 <button type="submit" class="btn btn-primary mb-3" name="btnAgregar">Agregar</button>
 		 </form>
-	<%-- <table>
 	
-	
-		<tr>
-			<td>Legajo</td><td><input type="text" name="Legajo" class="menu2" value="<%=legajo%>" readonly="true"></td>
-		</tr>
-		<tr>
-			<td>Documento</td><td><input type="text" name="txtDni" required></td>
-		</tr>
-		<tr>
-			<td>Nombre</td><td><input type="text" name="txtNombre"required></td>
-		</tr>
-		<tr>
-			<td>Apellido</td><td><input type="text" name="txtApellido" required></td>
-		</tr>
-		<tr>
-			<td>Fecha de Nacimiento</td><td><input type="text" name="txtFecha"required></td><td>Con formato dd/mm/aaaa</td>
-		</tr>
-		<tr>
-	
-   	
-	
-		<td> Nacionalidad</td>
-		<td>
-			<select id ="Nacionalidad" name="Nacionalidad" style="width: 148px ; ">  
-
-     <option value=null selected disabled hidden>Elegir un Pais</option>
-     <% if (list!= null)
-     	for(Pais t : list){
-    	 %>	
-		<option value=<%= t.getIdPais() %> ><%= t.getDescripcionPais()%> </option>
-		<%} %>
-	</select>
-	</td>
-	
-		</tr>
-		<tr>
-			<td>Provincia</td>
-			<td>
-			<select name="Provincia" style="width: 148px; " > 
-
-     <option value=null selected disabled hidden>Elegir una Provincia</option>
-     <% if(listprov!=null)
-     	for(Provincia t : listprov){
-     	 
-    	 %>
-		<option value=<%= t.getIdProvincia() %>><%=t.getDescripcionProv()%></option>
-		
-		<%} %>
-			</select>
-			</td>
-							
-		</tr>
-		<tr>
-			<td>Localidad</td>
-			<td>
-			<select select name="Localidad" style="width: 148px; " >	
-
-		     <option value=null selected disabled hidden>Elegir una Localidad</option>
-		     <% if(listLocalidad!=null)
-		     	for(Localidad t : listLocalidad){
-		    	 %>
-		     
-				<option value=<%= t.getIdLocalidad() %>><%=t.getDescripcion()%></option>
-				
-				<%} %>
-
-			</select>
-			</td>
-						</td>
-						
-				</tr>
-		
-		<tr>
-			<td>Direccion</td><td><input type="text" name="txtDireccion"required></td>
-		</tr>
-		<tr>
-			<td>Email</td><td><input type="text" name="txtEmail"required></td>
-		</tr>
-		<tr>
-			<td>Telefono</td><td><input type="text" name="txtTelefono"required></td>
-		</tr>
-		
-		<tr>
-			<td><input type="Submit" name="btnAgregar" value="AGREGAR" style="color: #000000"></td>
-		</tr>
-		
-	</table>--%>
 	
 	
 		<%

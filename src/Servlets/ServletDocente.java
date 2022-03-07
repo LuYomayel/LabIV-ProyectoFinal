@@ -42,15 +42,6 @@ public class ServletDocente extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("Param")!= null) {
-			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
-			ArrayList<Docente> lista= docenteNegocio.ListarDocentes();
-			request.setAttribute("listaD", lista);
-			RequestDispatcher rd = request.getRequestDispatcher("/ListadoProfesores.jsp");
-			rd.forward(request, response);
-		}
-		
-		
 		if(request.getParameter("Agregar")!=null) {
 			int legajo = 1000;
 			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
@@ -81,6 +72,7 @@ public class ServletDocente extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/AgregarProfesores.jsp");
 			rd.forward(request, response);
 		}
+		
 		if(request.getParameter("Modificar")!= null) {
 			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
 			ArrayList<Docente> lista= docenteNegocio.ListarDocentes();
@@ -98,6 +90,18 @@ public class ServletDocente extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/ModificarProfesor.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("Param")!= null) {
+			DocenteNegocioImpl docenteNegocio = new DocenteNegocioImpl();
+			ArrayList<Docente> lista= docenteNegocio.ListarDocentes();
+			request.setAttribute("listaD", lista);
+			RequestDispatcher rd = request.getRequestDispatcher("/ListadoProfesores.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		
+		
 		
 	}
 

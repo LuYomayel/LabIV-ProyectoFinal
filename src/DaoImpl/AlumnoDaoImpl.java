@@ -62,7 +62,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
 			CarreraDaoImpl daoCarrera = new CarreraDaoImpl();
 			int id = daoCarrera.getIdCarrera("Tecnico Superior en Programacion");
 			
-			ResultSet rs = st.executeQuery("SELECT a.idAlumno idAlumno,a.legajo Legajo,a.dni Dni,a.nombre Nombre,a.apellido Apellido, date_format(FechaNac, \"%d/%m/%Y\") FechaNacimiento, a.direccion Direccion, p.descripcion Pais, pr.descripcion Provincia, l.descripcion Localidad, a.email Email, a.telefono Telefono FROM alumnos a join paises p on p.idPais = a.idPais join provincias pr on pr.idPais = p.idPais join localidades l on l.idLocalidad = a.idLocalidad where a.estado = 1");
+			ResultSet rs = st.executeQuery("SELECT a.idAlumno idAlumno,a.legajo Legajo,a.dni Dni,a.nombre Nombre,a.apellido Apellido, date_format(FechaNac, \"%d/%m/%Y\") FechaNacimiento, a.direccion Direccion, p.descripcion Pais, pr.descripcion Provincia, l.descripcion Localidad, a.email Email, a.telefono Telefono FROM alumnos a join paises p on p.idPais = a.idPais join provincias pr on pr.idProvincia = a.idProvincia join localidades l on l.idLocalidad = a.idLocalidad where a.estado = 1");
 					
 			
 			while (rs.next()) {
