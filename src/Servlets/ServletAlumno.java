@@ -115,7 +115,7 @@ public class ServletAlumno extends HttpServlet {
 		if(request.getParameter("Modificar")!=null) {
 			int legajo = 1000;
 			AlumnoNegocioImpl alumnoNegocio = new AlumnoNegocioImpl();
-			ArrayList<Alumno> lista= alumnoNegocio.listarTodosAlumnos();
+			ArrayList<Alumno> lista= alumnoNegocio.ListarAlumnos();
 			request.setAttribute("listaA", lista);
 			
 			if(lista != null) {
@@ -234,13 +234,13 @@ public class ServletAlumno extends HttpServlet {
 			ArrayList<Provincia> listaProv = provDao.ListarProvincia();
 			LocalidadDaoImpl lDao = new LocalidadDaoImpl();
 			ArrayList<Localidad> listaLocal = lDao.ListarLocalidad();
-
+			ArrayList<Alumno> lista= alumnoNegocio.ListarAlumnos();
+			
+			
 			request.setAttribute("ListarProvincia", listaProv);
 			request.setAttribute("ListarPais", listaPais);
 			request.setAttribute("ListarLocalidad", listaLocal);
 			request.setAttribute("estadoModificar", estado);
-			
-			ArrayList<Alumno> lista= alumnoNegocio.ListarAlumnos();
 			request.setAttribute("listaA", lista);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/ListadoAlumnos.jsp");
